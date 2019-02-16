@@ -205,20 +205,27 @@ class MapViewPlugin(val activity: Activity) : MethodCallHandler {
                     return
                 }
                 val mapOptions = call.argument<Map<String, Any>>("mapOptions")
-                val cameraDict = mapOptions["cameraPosition"] as Map<String, Any>
-                initialCameraPosition = getCameraPosition(cameraDict)
-                toolbarActions = getToolbarActions(call.argument<List<Map<String, Any>>>("actions"))
-                showUserLocation = mapOptions["showUserLocation"] as Boolean
-                showMyLocationButton = mapOptions["showMyLocationButton"] as Boolean
-                showCompassButton = mapOptions["showCompassButton"] as Boolean
-                hideToolbar = mapOptions["hideToolbar"] as Boolean
-                mapTitle = mapOptions["title"] as String
-
-                if (mapOptions["mapViewType"] != null) {
-                    val mappedMapType: Int? = mapTypeMapping.get(mapOptions["mapViewType"]);
-                    if (mappedMapType != null) mapViewType = mappedMapType;
+                if (mapOptions != null) {
+                    val cameraDict = mapOptions["cameraPosition"] as Map<String, Any>
+                    initialCameraPosition = getCameraPosition(cameraDict)
+                    toolbarActions = getToolbarActions(call.argument<List<Map<String, Any>>>("actions"))
+                    showUserLocation = mapOptions["showUserLocation"] as Boolean
+                    showMyLocationButton = mapOptions["showMyLocationButton"] as Boolean
+                    showCompassButton = mapOptions["showCompassButton"] as Boolean
+                    hideToolbar = mapOptions["hideToolbar"] as Boolean
+                    mapTitle = mapOptions["title"] as String    
+                    if (mapOptions["mapViewType"] != null) {
+                        val mappedMapType: Int? = mapTypeMapping.get(mapOptions["mapViewType"]);
+                        if (mappedMapType != null) mapViewType = mappedMapType;
+                    }
+                } else {
+                    initialCameraPosition = getCameraPosition(emptyMap<String, Any>())
+                    showUserLocation = false
+                    showMyLocationButton = false 
+                    showCompassButton = false
+                    hideToolbar = false
+                    mapTitle = ""
                 }
-
                 val intent = Intent(activity, MapActivity::class.java)
                 activity.startActivity(intent)
                 result.success(true)
