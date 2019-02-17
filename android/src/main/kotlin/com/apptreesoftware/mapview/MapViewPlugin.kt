@@ -198,7 +198,6 @@ class MapViewPlugin(val activity: Activity) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: Result): Unit {
         when {
-            call.method == "setApiKey" -> result.success(false)
             call.method == "show" -> {
                 val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity)
                 if (GoogleApiAvailability.getInstance().showErrorDialogFragment(activity, code, REQUEST_GOOGLE_PLAY_SERVICES)) {

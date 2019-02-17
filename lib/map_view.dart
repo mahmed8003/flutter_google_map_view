@@ -61,18 +61,7 @@ class MapView {
     _channel.setMethodCallHandler(_handleMethod);
   }
 
-  static bool _apiKeySet = false;
-
-  static void setApiKey(String apiKey) {
-    MethodChannel c = const MethodChannel("com.apptreesoftware.map_view");
-    c.invokeMethod('setApiKey', apiKey);
-    _apiKeySet = true;
-  }
-
   void show(MapOptions mapOptions, {List<ToolbarAction> toolbarActions}) {
-    if (!_apiKeySet) {
-      throw "API Key must be set before calling `show`. Use MapView.setApiKey";
-    }
     List<Map> actions = [];
     if (toolbarActions != null) {
       actions = toolbarActions.map((t) => t.toMap).toList();

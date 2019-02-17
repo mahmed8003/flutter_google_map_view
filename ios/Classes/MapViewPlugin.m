@@ -26,10 +26,7 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
-    if ([@"setApiKey" isEqualToString:call.method]) {
-        [GMSServices provideAPIKey:call.arguments];
-        result(@YES);
-    } else if ([@"show" isEqualToString:call.method]) {
+    if ([@"show" isEqualToString:call.method]) {
         NSDictionary *args = call.arguments;
         NSDictionary *mapOptions = args[@"mapOptions"];
         NSDictionary *cameraDict = mapOptions[@"cameraPosition"];

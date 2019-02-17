@@ -14,7 +14,6 @@ import 'package:map_view/polyline.dart';
 const API_KEY = "<your-api-key>";
 
 void main() {
-  MapView.setApiKey(API_KEY);
   runApp(new MyApp());
 }
 
